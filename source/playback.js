@@ -85,6 +85,111 @@ function _simulateClick(driver, posX, posY, next) {
     .then(next);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
+////////////////////////////////////////////////////////////////////////////////
+
+function _setValueById(driver, id, value, next) {
+    console.log('  Setting value = "' + value + '" for element with ID = "' + id + '"');
+    driver
+        .executeScript(
+            'var el = document.getElementById("' + id + '");' +
+            'el.value = "' + value + '"'
+        )
+        .then(next);
+}
+
+function _clickById(driver, id, next) {
+    console.log('  Clicking element with ID = "' + id + '"');
+    driver
+        .executeScript(
+            'return document.getElementById("' + id + '");'
+        )
+        .then(function(activeElement) {
+            activeElement
+                .click()
+                .then(next);
+        });
+}
+
+function _simulateRightClick(driver, posX, posY, next) {   // DRB edit
+    var posString = '(' + posX + ', ' + posY + ')';
+    console.log('  RightClicking ' + posString);
+
+    driver
+        .executeScript(
+            'var el = document.elementFromPoint' + posString + ';' +
+                'if ((el.tagName === "TEXTAREA" || el.tagName === "INPUT") && document.caretPositionFromPoint) {' +
+                'var range = document.caretPositionFromPoint' + posString + ';' +
+                'var offset = range.offset;' +
+                'document.elementFromPoint' + posString + '.setSelectionRange(offset, offset);' +
+                '}' +
+                'var rightClick = document.createEvent("MouseEvents");'+
+                'rightClick.initMouseEvent('+
+                    '\'contextmenu\', '+
+                    'true,      '+
+                    'true,      '+
+                    'window,    '+
+                    '1,         '+
+                    posX + ',   '+
+                    posY + ',   '+
+                    posX + ',   '+
+                    posY + ',   '+
+                    'false,     '+
+                    'false,     '+
+                    'false,     '+
+                    'false,     '+
+                    '2,         '+
+                    'null       '+
+                ');'+
+                'el.dispatchEvent(rightClick);'
+        )
+        .then(next);
+}
+
+function _simulateDoubleClick(driver, posX, posY, next) {   // CEA edit
+    var posString = '(' + posX + ', ' + posY + ')';
+    console.log('  Double-Clicking ' + posString);
+
+    driver
+        // TODO: isolate this into a script file clicking on an input/textarea
+        // element focuses it but doesn't place the carret at the correct position;
+        // do it here (only works for ff)
+        .executeScript(
+            'var el = document.elementFromPoint' + posString + ';' +
+                'if ((el.tagName === "TEXTAREA" || el.tagName === "INPUT") && document.caretPositionFromPoint) {' +
+                'var range = document.caretPositionFromPoint' + posString + ';' +
+                'var offset = range.offset;' +
+                'document.elementFromPoint' + posString + '.setSelectionRange(offset, offset);' +
+                '}' +
+
+                'var doubleClick = document.createEvent("MouseEvents");'+
+                'doubleClick.initMouseEvent('+
+                '\'dblclick\', '+
+                'true,      '+
+                'true,      '+
+                'window,    '+
+                '1,         '+
+                posX + ',   '+
+                posY + ',   '+
+                posX + ',   '+
+                posY + ',   '+
+                'false,     '+
+                'false,     '+
+                'false,     '+
+                'false,     '+
+                '2,         '+
+                'null       '+
+                ');'+
+                'el.dispatchEvent(doubleClick);'
+        )
+        .then(next);
+}
+
+////////////////////////////////////////////
+// End of industrialwebapps.com additions //
+////////////////////////////////////////////
+
 function playback(playbackInfo, next) {
   var currentEventIndex = 0;
   var driver = playbackInfo.driver;
@@ -116,6 +221,34 @@ function playback(playbackInfo, next) {
       });
     } else {
       switch (currentEvent.action) {
+
+////////////////////////////////////////////////////////////////////////////////
+// industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
+////////////////////////////////////////////////////////////////////////////////
+        case consts.STEP_DOUBLECLICK:
+          fn = _simulateDoubleClick.bind(
+            null, driver, currentEvent.x, currentEvent.y, _next
+          );
+          break;
+        case consts.STEP_CLICKBYID:
+          fn = _clickById.bind(
+            null, driver, currentEvent.id, _next
+          );
+          break;
+        case consts.STEP_SETVALUEBYID:
+          fn = _setValueById.bind(
+            null, driver, currentEvent.id, currentEvent.value, _next
+          );
+          break;
+        case consts.STEP_RIGHTCLICK:  // DRB edit
+          fn = _simulateRightClick.bind(
+            null, driver, currentEvent.x, currentEvent.y, _next
+          );
+          break;
+////////////////////////////////////////////
+// End of industrialwebapps.com additions //
+////////////////////////////////////////////
+
         case consts.STEP_CLICK:
           fn = _simulateClick.bind(
             null, driver, currentEvent.x, currentEvent.y, _next

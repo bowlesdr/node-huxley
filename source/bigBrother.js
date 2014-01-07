@@ -4,6 +4,7 @@
 
   'use strict';
 
+  var curTime-lastClickTime = 0; // industrialwebapps.com addition
   var events = [];
   var specialKeysMap = {
     '37': 'ARROW_LEFT',
@@ -18,14 +19,42 @@
 
   // slightly related: for a select, chrome triggers mousedown but not click
   // anyways
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Reworked by industrialwebapps.com to support double-click functionality (Chris Aitken & Dave Bowles, Jan-2014) //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   window.addEventListener('mouseup', function(e) {
-    events.push({
-      action: 'click',
-      timeStamp: Date.now(),
-      x: e.clientX,
-      y: e.clientY
-    });
+        var curTime = Date.now();
+        if(curTime-lastClickTime < 500) { //CEA edit
+            events.push({
+                action: 'double-click',
+                timeStamp: Date.now(),
+                x: e.clientX,
+                y: e.clientY
+            });
+        } else {
+            if(e.which ===3) {
+                events.push({
+                    action: 'right-click',
+                    timeStamp: Date.now(),
+                    x: e.clientX,
+                    y: e.clientY
+                });
+            } else {
+                events.push({
+                    action: 'click',
+                    timeStamp: Date.now(),
+                    x: e.clientX,
+                    y: e.clientY
+                });
+            }
+        }
+        lastClickTime = curTime;
   }, true);
+
+///////////////////
+// End of rework //
+///////////////////
+
 
   // only `keypress` returns the correct character. `keydown` returns `A` when
   // pressing `a`, etc.

@@ -25,6 +25,16 @@ function createPlaybackInfo(info, verifyRecordContent) {
 }
 
 var validRecordedActions = [
+//////////////////////////////////////////////////////////////////////////////
+// industrialwebapps.com additions by Chris Aitken & Dave Bowles (Jan-2014) //
+//////////////////////////////////////////////////////////////////////////////
+  consts.STEP_CLICKBYID,
+  consts.STEP_RIGHTCLICK,
+  consts.STEP_SETVALUEBYID,
+  consts.STEP_DOUBLECLICK,
+////////////////////////////////////////////
+// End of industrialwebapps.com additions //
+////////////////////////////////////////////
   consts.STEP_SCREENSHOT,
   consts.STEP_CLICK,
   consts.STEP_KEYPRESS,
