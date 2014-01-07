@@ -24,3 +24,4 @@ module.exports = {
   // Selenium. The actual height of the chromeless viewport should be 689
   DEFAULT_SCREEN_SIZE: [1200, 795]
 };
+

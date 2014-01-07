@@ -1,5 +1,6 @@
 'use strict';
 
+
 var consts = require('./constants');
 
 function createPlaybackInfo(info, verifyRecordContent) {

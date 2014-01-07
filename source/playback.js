@@ -97,6 +97,7 @@ function _setValueById(driver, id, value, next) {
         .then(next);
 }
 
+
 function _setValueByClass(driver, elClass, value, next) {
     console.log('  Setting value = "' + value + '" for visible element with CLASS = "' + elClass + '"');
     driver
