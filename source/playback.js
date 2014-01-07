@@ -88,13 +88,20 @@ function _simulateClick(driver, posX, posY, next) {
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
-
 function _setValueById(driver, id, value, next) {
     console.log('  Setting value = "' + value + '" for element with ID = "' + id + '"');
     driver
         .executeScript(
-            'var el = document.getElementById("' + id + '");' +
-            'el.value = "' + value + '"'
+            '$("#' + id + '").val("' + value + '");'
+        )
+        .then(next);
+}
+
+function _setValueByClass(driver, elClass, value, next) {
+    console.log('  Setting value = "' + value + '" for visible element with CLASS = "' + elClass + '"');
+    driver
+        .executeScript(
+            '$(".' + elClass + ':visible").val("' + value + '");'
         )
         .then(next);
 }
@@ -104,6 +111,19 @@ function _clickById(driver, id, next) {
     driver
         .executeScript(
             'return document.getElementById("' + id + '");'
+        )
+        .then(function(activeElement) {
+            activeElement
+                .click()
+                .then(next);
+        });
+}
+
+function _clickByClass(driver, elClass, next) {
+    console.log('  Clicking visible element with CLASS = "' + elClass + '"');
+    driver
+        .executeScript(
+            'return $(".' + elClass + ':visible")[0];'
         )
         .then(function(activeElement) {
             activeElement
@@ -243,6 +263,16 @@ function playback(playbackInfo, next) {
         case consts.STEP_RIGHTCLICK:  // DRB edit
           fn = _simulateRightClick.bind(
             null, driver, currentEvent.x, currentEvent.y, _next
+          );
+          break;
+        case consts.STEP_CLICKBYCLASS:
+          fn = _clickByClass.bind(
+            null, driver, currentEvent.class, _next
+          );
+          break;
+        case consts.STEP_SETVALUEBYCLASS:
+          fn = _setValueByClass.bind(
+            null, driver, currentEvent.class, currentEvent.value, _next
           );
           break;
 ////////////////////////////////////////////

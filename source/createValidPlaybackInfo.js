@@ -32,6 +32,8 @@ var validRecordedActions = [
   consts.STEP_RIGHTCLICK,
   consts.STEP_SETVALUEBYID,
   consts.STEP_DOUBLECLICK,
+  consts.STEP_SETVALUEBYCLASS,
+  consts.STEP_CLICKBYCLASS,
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////
