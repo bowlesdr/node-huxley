@@ -88,6 +88,52 @@ function _simulateClick(driver, posX, posY, next) {
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
+function _waitForThenSetWithWebdriver(driver, selector, value, timeoutMs, interval, next){
+    console.log('  Waiting up to ' + timeoutMs + ' milliseconds to set ' + selector + ' to "' + value + '" via webdriver');
+    var startTime = Date.now();
+    var timeout = Date.now() + timeoutMs;
+    var checkExist = function() {
+        driver
+            .executeScript('return ' + selector + '[0];')
+            .then(function(el) {
+                if(el) {
+                    console.log('    %s found in %s milliseconds'.green, selector, Date.now() - startTime);
+                    console.log('  Setting ' + selector + ' to "' + value + '"\n');
+                    el.sendKeys(value);
+                    next();
+                } else if(Date.now() > timeout) {
+                    console.log('ERROR:  Element Not Found!!!\n'.bold.red);
+                    process.exit(1);
+                } else {
+                    setTimeout(checkExist, interval);
+                }
+            });
+    };
+    checkExist();
+}
+
+function _waitForNotFound(driver, selector, timeoutMs, interval, next) {
+    console.log('  Waiting up to ' + timeoutMs + ' milliseconds for ' + selector + ' to go away');
+    var startTime = Date.now();
+    var timeout = Date.now() + timeoutMs;
+    var checkExist = function() {
+        driver
+            .executeScript('return ' + selector + '.length')
+            .then(function(success) {
+                if(success == 0) {
+                    console.log('    %s found in %s milliseconds\n'.green, selector, Date.now() - startTime);
+                    next();
+                } else if(Date.now() > timeout) {
+                    console.log('ERROR:  Element Not Found!!!\n'.bold.red);
+                    process.exit(1);
+                } else {
+                    setTimeout(checkExist, interval);
+                }
+            });
+    };
+    checkExist();
+}
+
 function _waitForSelector(driver, selector, timeoutMs, interval, next) {
     console.log('  Waiting up to ' + timeoutMs + ' milliseconds for ' + selector + '');
     var startTime = Date.now();
@@ -100,8 +146,8 @@ function _waitForSelector(driver, selector, timeoutMs, interval, next) {
                     console.log('    %s found in %s milliseconds\n'.green, selector, Date.now() - startTime);
                     next();
                 } else if(Date.now() > timeout) {
-                    console.log('ERROR:  Element Not Found!!!\n'.red);
-                    next();
+                    console.log('ERROR:  Element Not Found!!!\n'.bold.red);
+                    process.exit(1);
                 } else {
                     setTimeout(checkExist, interval);
                 }
@@ -122,8 +168,8 @@ function _waitForThenSet(driver, selector, value, timeoutMs, interval, next) {
                     console.log('    %s found after %s milliseconds'.green, selector, Date.now() - startTime);
                     _setValueBySelector(driver, selector, value, next);
                 } else if(Date.now() > timeout) {
-                    console.log('ERROR:  Element Not Found!!!'.red);
-                    next();
+                    console.log('ERROR:  Element Not Found!!!'.bold.red);
+                    process.exit(1);
                 } else {
                     setTimeout(checkExist, interval);
                 }
@@ -144,8 +190,8 @@ function _waitForThenClick(driver, selector, clicktype, timeoutMs, interval, nex
                     console.log('    %s found in %s milliseconds'.green, selector, Date.now() - startTime);
                     _clickBySelector(driver, selector, clicktype, next);
                 } else if(Date.now() > timeout) {
-                    console.log('ERROR:  Element Not Found!!!'.red);
-                    next();
+                    console.log('ERROR:  Element Not Found!!!'.bold.red);
+                    process.exit(1);
                 } else {
                     setTimeout(checkExist, interval);
                 }
@@ -155,7 +201,7 @@ function _waitForThenClick(driver, selector, clicktype, timeoutMs, interval, nex
 }
 
 function _setValueBySelector(driver, selector, value, next) {
-    console.log('  Setting ' + selector + ' to "' + value +'"\n');
+    console.log('  Setting ' + selector + ' to "' + value +'" via client-side javascript\n');
     driver
         .executeScript(selector + '.val("' + value + '"); return;')
         .then(next);
@@ -194,6 +240,7 @@ function _clickBySelector(driver, selector, clicktype, next) {
             break;
     }
 }
+
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////
@@ -228,11 +275,26 @@ function playback(playbackInfo, next) {
         );
       });
     } else {
+      if(currentEvent.note) {
+        if(currentEvent.note.trim() != '' || currentEvent.action.trim() != '') {
+          console.log( '%s (%s)'.bold.blue, currentEvent.note, currentEvent.action);
+        }
+      }
       switch (currentEvent.action) {
 
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
+        case consts.STEP_WAITFORNOTFOUND:
+          fn = _waitForNotFound.bind(
+            null, driver, currentEvent.selector, currentEvent.timeoutMs, currentEvent.interval, _next
+          );
+          break;
+        case consts.STEP_WAITFORTHENSET_WD:
+          fn = _waitForThenSetWithWebdriver.bind(
+            null, driver, currentEvent.selector, currentEvent.value, currentEvent.timeoutMs, currentEvent.interval, _next
+          );
+          break;
         case consts.STEP_WAITFOR:
           fn = _waitForSelector.bind(
             null, driver, currentEvent.selector, currentEvent.timeoutMs, currentEvent.interval, _next

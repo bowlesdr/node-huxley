@@ -10,6 +10,8 @@ module.exports = {
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Chris Aitken and Dave Bowles (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
+  STEP_WAITFORNOTFOUND:   'wait-for-not-found',
+  STEP_WAITFORTHENSET_WD: 'wait-for-then-set-with-webdriver',
   STEP_WAITFOR:           'wait-for',
   STEP_WAITFORTHENSET:    'wait-for-then-set',
   STEP_WAITFORTHENCLICK:  'wait-for-then-click',

@@ -5,7 +5,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/constants.js" afterPath="$PROJECT_DIR$/source/constants.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/createValidPlaybackInfo.js" afterPath="$PROJECT_DIR$/source/createValidPlaybackInfo.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/playback.js" afterPath="$PROJECT_DIR$/source/playback.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="node-huxley.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +30,7 @@
       <file leaf-file-name="playback.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/playback.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="230" column="0" selection-start="8196" selection-end="8196" vertical-scroll-proportion="0.76875" vertical-offset="3402" max-vertical-offset="5454">
+            <state line="122" column="28" selection-start="4546" selection-end="4546" vertical-scroll-proportion="0.5125" vertical-offset="1704" max-vertical-offset="6570">
               <folding />
             </state>
           </provider>
@@ -40,8 +39,10 @@
       <file leaf-file-name="constants.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/constants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="46" selection-start="699" selection-end="699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
-              <folding />
+            <state line="12" column="22" selection-start="570" selection-end="590" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
+              <folding>
+                <marker date="1389289110263" expanded="true" signature="17:1296" placeholder="{&quot;HUXLEYFILE_NAME&quot;: 'Huxleyfile.json'...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -49,7 +50,7 @@
       <file leaf-file-name="createValidPlaybackInfo.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/createValidPlaybackInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1494">
+            <state line="31" column="0" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1530">
               <folding />
             </state>
           </provider>
@@ -68,9 +69,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/source/constants.js" />
         <option value="$PROJECT_DIR$/source/createValidPlaybackInfo.js" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/source/playback.js" />
       </list>
     </option>
@@ -238,20 +239,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="46" selection-start="699" selection-end="699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/createValidPlaybackInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1494">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="194" column="0" selection-start="5818" selection-end="5818" vertical-scroll-proportion="0.7375" vertical-offset="2784" max-vertical-offset="3780">
@@ -259,9 +246,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="22" selection-start="570" selection-end="590" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
+          <folding>
+            <marker date="1389289110263" expanded="true" signature="17:1296" placeholder="{&quot;HUXLEYFILE_NAME&quot;: 'Huxleyfile.json'...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/createValidPlaybackInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="0" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/playback.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="230" column="0" selection-start="8196" selection-end="8196" vertical-scroll-proportion="0.76875" vertical-offset="3402" max-vertical-offset="5454">
+        <state line="122" column="28" selection-start="4546" selection-end="4546" vertical-scroll-proportion="0.5125" vertical-offset="1704" max-vertical-offset="6570">
           <folding />
         </state>
       </provider>
