@@ -1,21 +1,20 @@
 module.exports = {
-  HUXLEYFILE_NAME: 'Huxleyfile.json',
+  HUXLEYFILE_NAME:        'Huxleyfile.json',
   SCREENSHOTS_FOLDER_EXT: '.hux',
-  RECORD_FILE_NAME: 'record.json',
-  DIFF_PNG_NAME: 'diff.png',
-  STEP_SCREENSHOT: 'screenshot',
-  STEP_CLICK: 'click',
-  STEP_KEYPRESS: 'keypress',
-  STEP_PAUSE: 'pause',
+  RECORD_FILE_NAME:       'record.json',
+  DIFF_PNG_NAME:          'diff.png',
+  STEP_SCREENSHOT:        'screenshot',
+  STEP_CLICK:             'click',
+  STEP_KEYPRESS:          'keypress',
+  STEP_PAUSE:             'pause',
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Chris Aitken and Dave Bowles (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
-  STEP_CLICKBYID:       'click-by-id',
-  STEP_RIGHTCLICK:      'right-click',
-  STEP_SETVALUEBYID:    'set-value-by-id',
-  STEP_DOUBLECLICK:     'double-click',
-  STEP_SETVALUEBYCLASS: 'set-value-by-class',
-  STEP_CLICKBYCLASS:    'click-by-class',
+  STEP_WAITFOR:           'wait-for',
+  STEP_WAITFORTHENSET:    'wait-for-then-set',
+  STEP_WAITFORTHENCLICK:  'wait-for-then-click',
+  STEP_SETVALUE:          'set-value',
+  STEP_CLICKBYSELECTOR:   'click-by-selector',
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////
@@ -24,4 +23,3 @@ module.exports = {
   // Selenium. The actual height of the chromeless viewport should be 689
   DEFAULT_SCREEN_SIZE: [1200, 795]
 };
-

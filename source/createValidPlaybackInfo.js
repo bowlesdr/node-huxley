@@ -1,6 +1,5 @@
 'use strict';
 
-
 var consts = require('./constants');
 
 function createPlaybackInfo(info, verifyRecordContent) {
@@ -29,12 +28,11 @@ var validRecordedActions = [
 //////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Chris Aitken & Dave Bowles (Jan-2014) //
 //////////////////////////////////////////////////////////////////////////////
-  consts.STEP_CLICKBYID,
-  consts.STEP_RIGHTCLICK,
-  consts.STEP_SETVALUEBYID,
-  consts.STEP_DOUBLECLICK,
-  consts.STEP_SETVALUEBYCLASS,
-  consts.STEP_CLICKBYCLASS,
+  consts.STEP_WAITFOR,
+  consts.STEP_WAITFORTHENSET,
+  consts.STEP_WAITFORTHENCLICK,
+  consts.STEP_SETVALUE,
+  consts.STEP_CLICKBYSELECTOR,
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////
