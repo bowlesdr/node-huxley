@@ -121,10 +121,10 @@ function _waitForNotFound(driver, selector, timeoutMs, interval, next) {
             .executeScript('return ' + selector + '.length')
             .then(function(success) {
                 if(success == 0) {
-                    console.log('    %s found in %s milliseconds\n'.green, selector, Date.now() - startTime);
+                    console.log('    %s not found after %s milliseconds\n'.green, selector, Date.now() - startTime);
                     next();
                 } else if(Date.now() > timeout) {
-                    console.log('ERROR:  Element Not Found!!!\n'.bold.red);
+                    console.log('ERROR:  Element Still Found!!!\n'.bold.red);
                     process.exit(1);
                 } else {
                     setTimeout(checkExist, interval);

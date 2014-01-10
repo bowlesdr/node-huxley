@@ -102,12 +102,12 @@ function _openRunAndClose(playbackInfos, openDummy, action, next) {
 }
 
 function _runActionOrDisplaySkipMsg(playbackInfo, action, next) {
-  console.log(
-    '\nAt %s'.underline, path.relative(process.cwd(), playbackInfo.recordPath)
-  );
+//  console.log(
+//    '\nAt %s'.underline, path.relative(process.cwd(), playbackInfo.recordPath)
+//  );
 
   if (playbackInfo.isSkipped) {
-    console.log('Marked as skipped.');
+//    console.log('Marked as skipped.');
     return next();
   }
 
