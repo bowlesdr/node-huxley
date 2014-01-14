@@ -99,7 +99,7 @@ function _waitForThenDragAndDrop(driver, dragSelector, dropSelector, timeoutMs, 
                            'ret[1] = ' + dropSelector + '[0];' +
                            'return ret')
             .then(function(el) {
-                if(el) {
+                if(el.length == 2) {
                     console.log('    %s found in %s milliseconds'.green, dragSelector, Date.now() - startTime);
                     console.log('  Dragging ' + dragSelector + ' to "' + dropSelector + '"\n');
                     driver.actions()
