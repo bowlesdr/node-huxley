@@ -88,6 +88,37 @@ function _simulateClick(driver, posX, posY, next) {
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
+function _waitForThenDragAndDrop(driver, dragSelector, dropSelector, timeoutMs, interval, next) {
+    console.log('  Waiting up to ' + timeoutMs + ' milliseconds to drag ' + dragSelector + ' to "' + dropSelector);
+    var startTime = Date.now();
+    var timeout = Date.now() + timeoutMs;
+    var checkExist = function() {
+        driver
+            .executeScript('var ret = [];' +
+                           'ret[0] = ' + dragSelector + '[0];' +
+                           'ret[1] = ' + dropSelector + '[0];' +
+                           'return ret')
+            .then(function(el) {
+                if(el) {
+                    console.log('    %s found in %s milliseconds'.green, dragSelector, Date.now() - startTime);
+                    console.log('  Dragging ' + dragSelector + ' to "' + dropSelector + '"\n');
+                    driver.actions()
+                        .mouseDown(el[0])
+                        .mouseMove(el[1])
+                        .mouseUp(el[1])
+                        .perform();
+                    next();
+                } else if(Date.now() > timeout) {
+                    console.log('ERROR:  Element Not Found!!!\n'.bold.red);
+                    process.exit(1);
+                } else {
+                    setTimeout(checkExist, interval);
+                }
+            });
+    };
+    checkExist();
+}
+
 function _waitForThenSetWithWebdriver(driver, selector, value, timeoutMs, interval, next){
     console.log('  Waiting up to ' + timeoutMs + ' milliseconds to set ' + selector + ' to "' + value + '" via webdriver');
     var startTime = Date.now();
@@ -285,6 +316,12 @@ function playback(playbackInfo, next) {
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
+
+        case consts.STEP_WAITFORTHENDRAGDROP:
+          fn = _waitForThenDragAndDrop.bind(
+            null, driver, currentEvent.dragSelector, currentEvent.dropSelector, currentEvent.timeoutMs, currentEvent.interval, _next
+          );
+          break;
         case consts.STEP_WAITFORNOTFOUND:
           fn = _waitForNotFound.bind(
             null, driver, currentEvent.selector, currentEvent.timeoutMs, currentEvent.interval, _next

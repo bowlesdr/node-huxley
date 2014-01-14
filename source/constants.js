@@ -10,13 +10,14 @@ module.exports = {
 ////////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Chris Aitken and Dave Bowles (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
-  STEP_WAITFORNOTFOUND:   'wait-for-not-found',
-  STEP_WAITFORTHENSET_WD: 'wait-for-then-set-with-webdriver',
-  STEP_WAITFOR:           'wait-for',
-  STEP_WAITFORTHENSET:    'wait-for-then-set',
-  STEP_WAITFORTHENCLICK:  'wait-for-then-click',
-  STEP_SETVALUE:          'set-value',
-  STEP_CLICKBYSELECTOR:   'click-by-selector',
+  STEP_WAITFORTHENDRAGDROP: 'wait-for-then-drag-and-drop',
+  STEP_WAITFORNOTFOUND:     'wait-for-not-found',
+  STEP_WAITFORTHENSET_WD:   'wait-for-then-set-with-webdriver',
+  STEP_WAITFOR:             'wait-for',
+  STEP_WAITFORTHENSET:      'wait-for-then-set',
+  STEP_WAITFORTHENCLICK:    'wait-for-then-click',
+  STEP_SETVALUE:            'set-value',
+  STEP_CLICKBYSELECTOR:     'click-by-selector',
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////

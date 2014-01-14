@@ -28,6 +28,7 @@ var validRecordedActions = [
 //////////////////////////////////////////////////////////////////////////////
 // industrialwebapps.com additions by Chris Aitken & Dave Bowles (Jan-2014) //
 //////////////////////////////////////////////////////////////////////////////
+  consts.STEP_WAITFORTHENDRAGDROP,
   consts.STEP_WAITFORNOTFOUND,
   consts.STEP_WAITFORTHENSET_WD,
   consts.STEP_WAITFOR,
