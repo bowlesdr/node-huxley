@@ -63,7 +63,8 @@ function _runEachPlayback(playbackInfos, action, next) {
 // does nothing but open and close the browser and handle its errors
 // needs to know nothing but a command to run in-between, and the callback
 function _openRunAndClose(playbackInfos, openDummy, action, next) {
-  var browserName = playbackInfos.browserName;
+  var browserName = playbackInfos[0].browserName;
+
   browser.open(browserName, function(err, driver) {
     if (err) {
       return browser.quit(driver, function(err2) {
@@ -146,6 +147,7 @@ function _playbackTasksAndXScreenshots(browserName,
       info.browserName = browserName;
       info.overrideScreenshots = saveInsteadOfCompare;
     });
+      console.log(playbackInfos.browserName);
     _openRunAndClose(playbackInfos,
                     true,
                     _runEachPlayback.bind(null, playbackInfos, playback),
