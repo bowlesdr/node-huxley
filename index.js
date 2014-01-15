@@ -147,7 +147,6 @@ function _playbackTasksAndXScreenshots(browserName,
       info.browserName = browserName;
       info.overrideScreenshots = saveInsteadOfCompare;
     });
-      console.log(playbackInfos.browserName);
     _openRunAndClose(playbackInfos,
                     true,
                     _runEachPlayback.bind(null, playbackInfos, playback),
