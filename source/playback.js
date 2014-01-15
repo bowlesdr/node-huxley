@@ -3,7 +3,7 @@
 var colors = require('colors');
 var path = require('path');
 var specialKeys = require('selenium-webdriver').Key;
-
+var lastModuleName = '';
 var imageOperations = require('./imageOperations');
 var consts = require('./constants');
 
@@ -64,7 +64,7 @@ function _simulateKeypress(driver, key, next) {
 // TODO: handle friggin select menu click, can't right now bc browsers
 function _simulateClick(driver, posX, posY, next) {
   var posString = '(' + posX + ', ' + posY + ')';
-  console.log('  Clicking ' + posString);
+  console.log('    Clicking ' + posString);
 
   driver
     // TODO: isolate this into a script file clicking on an input/textarea
@@ -89,7 +89,7 @@ function _simulateClick(driver, posX, posY, next) {
 // industrialwebapps.com additions by Dave Bowles and Chris Aitken (Jan-2014) //
 ////////////////////////////////////////////////////////////////////////////////
 function _waitForThenDragAndDrop(driver, dragSelector, dropSelector, timeoutMs, interval, next) {
-    console.log('  Waiting up to ' + timeoutMs + ' milliseconds to drag ' + dragSelector + ' to "' + dropSelector);
+    console.log('    Waiting up to ' + timeoutMs + ' milliseconds to drag ' + dragSelector + ' to "' + dropSelector);
     var startTime = Date.now();
     var timeout = Date.now() + timeoutMs;
     var checkExist = function() {
@@ -100,8 +100,8 @@ function _waitForThenDragAndDrop(driver, dragSelector, dropSelector, timeoutMs, 
                            'return ret')
             .then(function(el) {
                 if(el.length == 2) {
-                    console.log('    %s found in %s milliseconds'.green, dragSelector, Date.now() - startTime);
-                    console.log('  Dragging ' + dragSelector + ' to "' + dropSelector + '"\n');
+                    console.log('      %s found in %s milliseconds'.green, dragSelector, Date.now() - startTime);
+                    console.log('    Dragging ' + dragSelector + ' to "' + dropSelector + '"\n');
                     driver.actions()
                         .mouseDown(el[0])
                         .mouseMove(el[1])
@@ -120,7 +120,7 @@ function _waitForThenDragAndDrop(driver, dragSelector, dropSelector, timeoutMs, 
 }
 
 function _waitForThenSetWithWebdriver(driver, selector, value, timeoutMs, interval, next){
-    console.log('  Waiting up to ' + timeoutMs + ' milliseconds to set ' + selector + ' to "' + value + '" via webdriver');
+    console.log('    Waiting up to ' + timeoutMs + ' milliseconds to set ' + selector + ' to "' + value + '" via webdriver');
     var startTime = Date.now();
     var timeout = Date.now() + timeoutMs;
     var checkExist = function() {
@@ -128,8 +128,8 @@ function _waitForThenSetWithWebdriver(driver, selector, value, timeoutMs, interv
             .executeScript('return ' + selector + '[0];')
             .then(function(el) {
                 if(el) {
-                    console.log('    %s found in %s milliseconds'.green, selector, Date.now() - startTime);
-                    console.log('  Setting ' + selector + ' to "' + value + '"\n');
+                    console.log('      %s found in %s milliseconds'.green, selector, Date.now() - startTime);
+                    console.log('    Setting ' + selector + ' to "' + value + '"\n');
                     el.sendKeys(value);
                     next();
                 } else if(Date.now() > timeout) {
@@ -144,7 +144,7 @@ function _waitForThenSetWithWebdriver(driver, selector, value, timeoutMs, interv
 }
 
 function _waitForNotFound(driver, selector, timeoutMs, interval, next) {
-    console.log('  Waiting up to ' + timeoutMs + ' milliseconds for ' + selector + ' to go away');
+    console.log('    Waiting up to ' + timeoutMs + ' milliseconds for ' + selector + ' to go away');
     var startTime = Date.now();
     var timeout = Date.now() + timeoutMs;
     var checkExist = function() {
@@ -152,7 +152,7 @@ function _waitForNotFound(driver, selector, timeoutMs, interval, next) {
             .executeScript('return ' + selector + '.length')
             .then(function(success) {
                 if(success == 0) {
-                    console.log('    %s not found after %s milliseconds\n'.green, selector, Date.now() - startTime);
+                    console.log('      %s not found after %s milliseconds\n'.green, selector, Date.now() - startTime);
                     next();
                 } else if(Date.now() > timeout) {
                     console.log('ERROR:  Element Still Found!!!\n'.bold.red);
@@ -166,7 +166,7 @@ function _waitForNotFound(driver, selector, timeoutMs, interval, next) {
 }
 
 function _waitForSelector(driver, selector, timeoutMs, interval, next) {
-    console.log('  Waiting up to ' + timeoutMs + ' milliseconds for ' + selector + '');
+    console.log('    Waiting up to ' + timeoutMs + ' milliseconds for ' + selector + '');
     var startTime = Date.now();
     var timeout = Date.now() + timeoutMs;
     var checkExist = function() {
@@ -174,7 +174,7 @@ function _waitForSelector(driver, selector, timeoutMs, interval, next) {
             .executeScript('return ' + selector + '.length')
             .then(function(success) {
                 if(success > 0) {
-                    console.log('    %s found in %s milliseconds\n'.green, selector, Date.now() - startTime);
+                    console.log('      %s found in %s milliseconds\n'.green, selector, Date.now() - startTime);
                     next();
                 } else if(Date.now() > timeout) {
                     console.log('ERROR:  Element Not Found!!!\n'.bold.red);
@@ -188,7 +188,7 @@ function _waitForSelector(driver, selector, timeoutMs, interval, next) {
 }
 
 function _waitForThenSet(driver, selector, value, timeoutMs, interval, next) {
-    console.log('  Waiting up to ' + timeoutMs + ' milliseconds to set ' + selector + ' to "' + value + '"');
+    console.log('    Waiting up to ' + timeoutMs + ' milliseconds to set ' + selector + ' to "' + value + '"');
     var startTime = Date.now();
     var timeout = Date.now() + timeoutMs;
     var checkExist = function() {
@@ -196,7 +196,7 @@ function _waitForThenSet(driver, selector, value, timeoutMs, interval, next) {
             .executeScript('return ' + selector + '.length')
             .then(function(success) {
                 if(success > 0) {
-                    console.log('    %s found after %s milliseconds'.green, selector, Date.now() - startTime);
+                    console.log('      %s found after %s milliseconds'.green, selector, Date.now() - startTime);
                     _setValueBySelector(driver, selector, value, next);
                 } else if(Date.now() > timeout) {
                     console.log('ERROR:  Element Not Found!!!'.bold.red);
@@ -210,7 +210,7 @@ function _waitForThenSet(driver, selector, value, timeoutMs, interval, next) {
 }
 
 function _waitForThenClick(driver, selector, clicktype, timeoutMs, interval, next) {
-    console.log('  Waiting up to ' + timeoutMs + ' milliseconds to ' + clicktype + '-click ' + selector + '');
+    console.log('    Waiting up to ' + timeoutMs + ' milliseconds to ' + clicktype + '-click ' + selector + '');
     var startTime = Date.now();
     var timeout = Date.now() + timeoutMs;
     var checkExist = function() {
@@ -218,7 +218,7 @@ function _waitForThenClick(driver, selector, clicktype, timeoutMs, interval, nex
             .executeScript('return ' + selector + '.length')
             .then(function(success) {
                 if(success > 0) {
-                    console.log('    %s found in %s milliseconds'.green, selector, Date.now() - startTime);
+                    console.log('      %s found in %s milliseconds'.green, selector, Date.now() - startTime);
                     _clickBySelector(driver, selector, clicktype, next);
                 } else if(Date.now() > timeout) {
                     console.log('ERROR:  Element Not Found!!!'.bold.red);
@@ -232,7 +232,7 @@ function _waitForThenClick(driver, selector, clicktype, timeoutMs, interval, nex
 }
 
 function _setValueBySelector(driver, selector, value, next) {
-    console.log('  Setting ' + selector + ' to "' + value +'" via client-side javascript\n');
+    console.log('    Setting ' + selector + ' to "' + value +'" via client-side javascript\n');
     driver
         .executeScript(selector + '.val("' + value + '"); return;')
         .then(next);
@@ -240,9 +240,9 @@ function _setValueBySelector(driver, selector, value, next) {
 
 function _clickBySelector(driver, selector, clicktype, next) {
     // clickType can be Right, Left or Double
-    console.log('  ' + clicktype + '-clicking on: ' + selector + '\n');
-    switch(clicktype) {
-        case 'Left':
+    console.log('    ' + clicktype + '-clicking on: ' + selector + '\n');
+    switch(clicktype.toLowerCase()) {
+        case 'left':
             driver
                 .executeScript('return ' + selector + '[0];')
                 .then(function(el) {
@@ -252,7 +252,7 @@ function _clickBySelector(driver, selector, clicktype, next) {
                 });
             break;
 
-        case 'Right':
+        case 'right':
             driver
                 .executeScript(
                     'var el = ' + selector + '[0];' +
@@ -261,13 +261,16 @@ function _clickBySelector(driver, selector, clicktype, next) {
                 .then(next);
             break;
 
-        case 'Double':
+        case 'double':
             driver
                 .executeScript(
                     'var el = ' + selector + '[0];' +
                     'el.dispatchEvent(new CustomEvent("dblclick"));'
                 )
                 .then(next);
+            break;
+        default:
+            throw 'Invalid clickType passed to _clickBySelector (' + clickType + ')';
             break;
     }
 }
@@ -306,9 +309,16 @@ function playback(playbackInfo, next) {
         );
       });
     } else {
+
+      if(currentEvent.moduleName && currentEvent.moduleName != lastModuleName) {
+          console.log(' ');
+          console.log(  '\n%s\n'.black.whiteBG, currentEvent.moduleName);
+          lastModuleName = currentEvent.moduleName;
+      }
+
       if(currentEvent.note) {
         if(currentEvent.note.trim() != '' || currentEvent.action.trim() != '') {
-          console.log( '%s (%s)'.bold.blue, currentEvent.note, currentEvent.action);
+          console.log( '  %s (%s)'.bold.blue, currentEvent.note, currentEvent.action);
         }
       }
       switch (currentEvent.action) {
