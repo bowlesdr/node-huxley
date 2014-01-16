@@ -36,6 +36,7 @@ var validRecordedActions = [
   consts.STEP_WAITFORTHENCLICK,
   consts.STEP_SETVALUE,
   consts.STEP_CLICKBYSELECTOR,
+  consts.STEP_EXECUTESCRIPT,
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////

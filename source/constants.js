@@ -18,6 +18,7 @@ module.exports = {
   STEP_WAITFORTHENCLICK:    'wait-for-then-click',
   STEP_SETVALUE:            'set-value',
   STEP_CLICKBYSELECTOR:     'click-by-selector',
+  STEP_EXECUTESCRIPT:     'execute-script',
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////

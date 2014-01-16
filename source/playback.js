@@ -209,6 +209,10 @@ function _waitForThenSet(driver, selector, value, timeoutMs, interval, next) {
     checkExist();
 }
 
+function _executeScript(driver, code) {
+    driver.executeScript(code).then(next);
+}
+
 function _waitForThenClick(driver, selector, clicktype, timeoutMs, interval, next) {
     console.log('    Waiting up to ' + timeoutMs + ' milliseconds to ' + clicktype + '-click ' + selector + '');
     var startTime = Date.now();
@@ -367,6 +371,11 @@ function playback(playbackInfo, next) {
                 null, driver, currentEvent.selector, currentEvent.clicktype, _next
             );
           break;
+        case consts.STEP_EXECUTESCRIPT:
+            fn = _executeScript().bind(
+                null, driver, currentEvent.code, _next
+            );
+            break;
 ////////////////////////////////////////////
 // End of industrialwebapps.com additions //
 ////////////////////////////////////////////
