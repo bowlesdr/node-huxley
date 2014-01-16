@@ -372,7 +372,7 @@ function playback(playbackInfo, next) {
             );
           break;
         case consts.STEP_EXECUTESCRIPT:
-            fn = _executeScript().bind(
+            fn = _executeScript.bind(
                 null, driver, currentEvent.code, _next
             );
             break;
