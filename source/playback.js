@@ -209,7 +209,7 @@ function _waitForThenSet(driver, selector, value, timeoutMs, interval, next) {
     checkExist();
 }
 
-function _executeScript(driver, code) {
+function _executeScript(driver, code, next) {
     driver.executeScript(code).then(next);
 }
 
